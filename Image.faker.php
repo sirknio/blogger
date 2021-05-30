@@ -104,12 +104,21 @@ class Image extends Base
 
         $url = static::imageUrl($width, $height, $category, $randomize, $word, $gray);
 
+        printf($url ."\n");
+
         // save file
         if (function_exists('curl_exec')) {
             // use cURL
             $fp = fopen($filepath, 'w');
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_FILE, $fp);
+            
+            // (upload-09)  Estas dos lineas se ponen para que funcione bien el faker por nuestra geografia. Sin emabrgo este archivo es donde 
+            // accede a https://via.placeholder.com para descargar imagenes y como yo puse en el llamado desde el factory el parametro "Carlos"
+            // la imagen esta creandose con esa palabra
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //nueva línea
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //nueva línea
+
             $success = curl_exec($ch) && curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
             fclose($fp);
             curl_close($ch);
