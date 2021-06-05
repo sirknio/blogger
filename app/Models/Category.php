@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $fillable = ['name','slug'];
     use HasFactory;
     
     // Relación uno a muchos
