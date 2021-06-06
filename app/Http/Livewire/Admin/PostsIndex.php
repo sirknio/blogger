@@ -10,9 +10,17 @@ class PostsIndex extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
+    public $search;
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
     public function render()
     {
-        $posts = Post::where('user_id', auth()->user()->id)->latest('id')->paginate(10);
+        $posts = Post::where('user_id', auth()->user()->id)
+                        ->where('name', 'like', '%' . $this->search . '%')
+                        ->latest('id')
+                        ->paginate(10);
         return view('livewire.admin.posts-index', compact('posts'));
     }
 }
