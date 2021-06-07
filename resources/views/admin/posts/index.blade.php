@@ -3,8 +3,9 @@
 @section('title', 'Admin LTE')
 
 @section('content_header')
-    <h1>Dashboard</h1>
-@stop
+    <a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.posts.create') }}">Nuevo Post</a>
+    <h1>Listado de Post</h1>
+@stop 
 
 @section('content')
     @livewire('admin.posts-index')
