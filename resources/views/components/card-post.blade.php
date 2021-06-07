@@ -13,7 +13,7 @@
         </h1>
 
         <div class=" text-gray-700 text-base">
-            {{ $post->extract }}
+            {!! $post->extract !!}
         </div>
 
         <div class="px-6 pt-4 pb-2">
