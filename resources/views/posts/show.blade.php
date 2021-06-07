@@ -10,7 +10,12 @@
             {{-- Contenido Princial --}}
             <div class="lg:col-span-2">
                 <figure>
-                    <img class="w-full h-80 object-cover object-center" src="{{ Storage::url($post->image->url) }}" alt="">
+                    @if ($post->image)
+                        <img class="w-full h-80 object-cover object-center"
+                            src="{{ Storage::url($post->image->url) }}" alt="">
+                    @else
+                        <img class="w-full h-80 object-cover object-center" src="" alt="">
+                    @endif
                 </figure>
 
                 <div class="text-base text-gray-500 mt-6">
@@ -28,7 +33,12 @@
                         @foreach ($similars as $similar)
                             <li class="mb-4">
                                 <a class="flex" href="{{ route('posts.show', $similar) }}">
-                                    <img class="h-24 object-cover object-center" src="{{ Storage::url($similar->image->url) }}" alt="">
+                                    @if ($similar->image)
+                                        <img class="h-24 object-cover object-center"
+                                            src="{{ Storage::url($similar->image->url) }}" alt="">
+                                    @else
+                                        <img class="h-24 object-cover object-center" src="" alt="">
+                                    @endif
                                     <span class="ml-2 text-gray-600 text-base font-semibold">
                                         {{ $similar->name }}
                                     </span>
