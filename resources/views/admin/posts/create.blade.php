@@ -9,78 +9,10 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route' => 'admin.posts.store']) !!}
+            {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off', 'files' => true]) !!}
             {!! Form::hidden('user_id', auth()->user()->id) !!}
-            <div class="form-group">
-                {!! Form::label('name', 'Nombre') !!}
-                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del Post']) !!}
-
-                @error('name')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                {!! Form::label('slug', 'Slug') !!}
-                {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el slug del Post', 'readonly']) !!}
-                @error('slug')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                {!! Form::label('category_id', 'Categoria') !!}
-                {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
-                @error('category_id')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <p class="font-weight-bold">Etiquetas</p>
-                @foreach ($tags as $tag)
-                    <label class="mr-4">
-                        {!! Form::checkbox('tags[]', $tag->id, null) !!}
-                        {{ $tag->name }}
-                    </label>
-                @endforeach
-                @error('tags')
-                    <br>
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <p class="font-weight-bold">Estado</p>
-                <label>
-                    {!! Form::radio('status', 1, true) !!}
-                    Borrador
-                </label>
-                <label>
-                    {!! Form::radio('status', 2) !!}
-                    Publicado
-                </label>
-                @error('status')
-                    <br>
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                {!! Form::label('extract', 'Resumen Post') !!}
-                {!! Form::textarea('extract', null, ['class' => 'form-control']) !!}
-                @error('extract')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                {!! Form::label('body', 'Contenido') !!}
-                {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
-                @error('body')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+            
+            @include('admin.posts.partials.form')
 
             <div class="form-group">
                 {!! Form::submit('Agregar Post', ['class' => 'btn btn-primary']) !!}
@@ -90,6 +22,23 @@
         </div>
     </div>
 @stop
+
+@section('css')
+    <style>
+        .image-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+
+        .image-wrapper img {
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+@endsection
 
 @section('js')
     <script src="{{ asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.stringToSlug.min.js') }}"></script>
@@ -112,6 +61,19 @@
             .catch(error => {
                 console.error(error);
             });
+
+        //Mostrar imagen seleccionada
+        document.getElementById("file").addEventListener('change', cambiarImagen);
+
+        function cambiarImagen(event) {
+            var file = event.target.files[0];
+
+            var reader = new FileReader();
+            reader.onload = (event) => {
+                document.getElementById("picture").setAttribute('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
 
     </script>
 @endsection
