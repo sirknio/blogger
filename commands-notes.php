@@ -85,7 +85,9 @@ Con este comando se instala la libreria
 Este comando debe usarse para poder subir archivos y en los casos que se usa Jetstrean probablemente la carpeta no se haya
 creado correctamente, adicional en el archivo filesystems.php de la carpeta config se debe cambiar la variable 'default' de local a public
 
-
+> php artisan make:observer PostObserver --model=Post
+Este comando sirve para crear un observer, funciona como el trigger de una base de datos al mometo de generar una acción como borrar, 
+actualizar o crear un registro en una tabla.
 
 
 
