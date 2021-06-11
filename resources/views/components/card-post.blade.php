@@ -5,7 +5,7 @@
     @if ($post->image)
     <img class="w-full h-72 object-cover object-center" src="{{ Storage::url($post->image->url) }}" alt="">
     @else
-        <img class="w-full h-72 object-cover object-center" src="" alt="">
+        <img class="w-full h-72 object-cover object-center" src="https://cdn.pixabay.com/photo/2018/12/10/10/21/earth-3866609_960_720.jpg" alt="">
     @endif
     <div class="px-6 py-4">
         <h1 class="font-bold text-xl mb-4">
