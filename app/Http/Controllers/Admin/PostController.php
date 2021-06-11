@@ -61,7 +61,7 @@ class PostController extends Controller
         }
 
         return redirect()->route('admin.posts.edit', $post)
-                    ->with('info', 'El post fue creado correctamente');
+            ->with('info', 'El post fue creado correctamente');
     }
 
     /**
@@ -116,7 +116,7 @@ class PostController extends Controller
             } else {
                 $post->image()->create([
                     'url' => $url,
-        ]);
+                ]);
             }
         }
 
@@ -125,7 +125,7 @@ class PostController extends Controller
         }
 
         return redirect()->route('admin.posts.edit', $post)
-                    ->with('info', 'El post fue actualizado correctamente');
+            ->with('info', 'El post fue actualizado correctamente');
     }
 
     /**
@@ -138,6 +138,6 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect()->route('admin.posts.index')
-                    ->with('info', 'El post fue actualizado correctamente');
+            ->with('info', 'El post fue eliminado correctamente');
     }
 }
